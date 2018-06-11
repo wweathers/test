@@ -3,103 +3,41 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wiweathe <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: apickett <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/04/23 14:40:38 by wiweathe          #+#    #+#              #
-#    Updated: 2018/06/09 18:39:23 by wiweathe         ###   ########.fr        #
+#    Created: 2018/05/01 14:41:42 by apickett          #+#    #+#              #
+#    Updated: 2018/05/03 00:36:18 by apickett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME		=	libft.a
 
-FLAG = -c -Wall -Wextra -Werror
+GCC 		=	gcc -Wall -Wextra -Werror -c
+AR			=	ar rc
+INCLUDES	=	libft.h
 
-SRC = ft_atoi.c \
-	  ft_bzero.c \
-	  ft_isalnum.c \
-	  ft_isalpha.c \
-	  ft_isascii.c \
-	  ft_isdigit.c \
-	  ft_isprint.c \
-	  ft_itoa.c \
-	  ft_isgraph.c \
-	  ft_memalloc.c \
-	  ft_memccpy.c \
-	  ft_memchr.c \
-	  ft_memcmp.c \
-	  ft_memcpy.c \
-	  ft_memdel.c \
-	  ft_memmove.c \
-	  ft_memset.c \
-	  ft_putchar.c \
-	  ft_putchar_fd.c \
-	  ft_putendl.c \
-	  ft_putendl_fd.c \
-	  ft_putnbr.c \
-	  ft_putnbr_fd.c \
-	  ft_putstr.c \
-	  ft_putstr_fd.c \
-	  ft_strcat.c \
-	  ft_strchr.c \
-	  ft_strclr.c \
-	  ft_strcmp.c \
-	  ft_strcpy.c \
-	  ft_strdel.c \
-	  ft_strdup.c \
-	  ft_strequ.c \
-	  ft_striter.c \
-	  ft_striteri.c \
-	  ft_strjoin.c \
-	  ft_strlcat.c \
-	  ft_strlen.c \
-	  ft_strmap.c \
-	  ft_strmapi.c \
-	  ft_strncat.c \
-	  ft_strncmp.c \
-	  ft_strncpy.c \
-	  ft_strnequ.c \
-	  ft_strnew.c \
-	  ft_strnstr.c \
-	  ft_strrchr.c \
-	  ft_strsplit.c \
-	  ft_strstr.c \
-	  ft_strsub.c \
-	  ft_strtrim.c \
-	  ft_swap.c \
-	  ft_tolower.c \
-	  ft_toupper.c \
-	  ft_lstadd.c \
-	  ft_lstdel.c \
-	  ft_lstdelone.c \
-	  ft_lstiter.c \
-	  ft_lstnew.c \
-	  ft_lstmap.c \
-	  ft_ispunct.c \
-	  ft_lstat.c \
-	  ft_isspace.c \
+FILENAMES = ft_*.c
 
+OUT = $(patsubst %.c, %.o, $(FILENAMES))
 
-OBJ = $(SRC:.c=.o)
-
-$(NAME): $(OBJ)
-	@ar rc $(NAME) $(OBJ)
-	@echo "$(NAME) created"
-	@ranlib $(NAME)
-	@echo "$(NAME) indexed"
+INCLUDES = libft.h
 
 all: $(NAME)
 
-%.o: %.c
-	@gcc $(FLAG) $< -o $@
+$(NAME):
+	$(GCC) $(FILENAMES) -I $(INCLUDES)
+	$(AR) $(NAME) $(OUT)
+	ranlib $(NAME)
 
 clean:
-	@rm -f $(OBJ)
-	@echo "OBJ deleted"
+	/bin/rm -f $(OUT)
 
 fclean: clean
-	@rm -f $(NAME)
-	@echo "$(NAME) deleted"
+	/bin/rm -f $(NAME)
 
 re: fclean all
+	$(GCC) $(FILENAMES) -I $(INCLUDES)
+	$(AR) $(NAME) $(OUT)
+	ranlib $(NAME)
 
-.PHONY: all, clean, fclean, re
+.PHONY: clean fclean re
